@@ -57,6 +57,7 @@ return {
     opts = { use_diagnostic_signs = true },
   },
 
+
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 
@@ -78,6 +79,8 @@ return {
     end,
   },
   {    'jmbuhr/otter.nvim'},
+
+--{'luk400/vim-jukit' },
 
   -- change some telescope options and a keymap to browse plugin files
   {
@@ -101,6 +104,7 @@ return {
       },
     },
   },
+--  { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' },
 
   -- add telescope-fzf-native
   {
@@ -123,6 +127,15 @@ return {
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
+      jsonls = {
+           on_new_config = function(new_config, _)
+        local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
+        if require'lspconfig'.util.path.is_file(julia) then
+        -- vim.notify("Hello!")
+            new_config.cmd[1] = julia
+        end
+    end
+        },
       },
     },
   },
@@ -194,6 +207,7 @@ return {
         "go",
         "rust",
         "ini",
+        "julia"
       },
 
       autotag = {
@@ -258,9 +272,18 @@ return {
         "elixir-ls",
         "gofumpt",
         "golangci-lint",
+        "julia-lsp"
       },
     },
   },
+    {
+    "kiyoon/jupynium.nvim",
+    build = "pip3 install --user .",
+    -- build = "conda run --no-capture-output -n jupynium pip install .",
+    -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+  },
+  "rcarriga/nvim-notify",   -- optional
+  "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
 
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
@@ -312,5 +335,10 @@ return {
         end, { "i", "s" }),
       })
     end,
+  },
+
+-- R
+  {"jalvesaq/Nvim-R",
+lazy = false
   },
 }
