@@ -23,6 +23,32 @@ return {
       colorscheme = "onedark",
     },
   },
+  {'quarto-dev/quarto-nvim',
+  config = function()
+     require'quarto'.setup{
+  debug = false,
+  closePreviewOnExit = true,
+  lspFeatures = {
+    enabled = true,
+    languages = { 'r', 'python', 'julia', 'bash' },
+    chunks = 'curly', -- 'curly' or 'all'
+    diagnostics = {
+      enabled = true,
+      triggers = { "BufWritePost" }
+    },
+    completion = {
+      enabled = true,
+    },
+  },
+  keymap = {
+    hover = 'K',
+    definition = 'gd',
+    rename = '<leader>lR',
+    references = 'gr',
+  }
+}
+    end,
+  },
 
   -- change trouble config
   {
@@ -51,6 +77,7 @@ return {
       table.insert(opts.sources, { name = "emoji" })
     end,
   },
+  {    'jmbuhr/otter.nvim'},
 
   -- change some telescope options and a keymap to browse plugin files
   {
