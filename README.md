@@ -20,7 +20,7 @@ mv ~/.cache/nvim{,.bak}
 
 Clone the starter
 
-[git clone https://github.com/jpx40/lazynvim/ ~/.config/nvim
+git clone https://github.com/jpx40/lazynvim/ ~/.config/nvim
 
 Remove the .git folder, so you can add it to your own repo later
 
