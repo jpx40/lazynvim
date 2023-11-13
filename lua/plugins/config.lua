@@ -11,6 +11,7 @@
 
 
 return {
+  {'danielo515/nvim-treesitter-reason'},
 {"vrischmann/tree-sitter-templ"},
 
   -- add gruvbox
@@ -49,6 +50,19 @@ return {
 }
     end,
   },
+  {"echasnovski/mini.comment", enabled = false},
+
+{
+  'Exafunction/codeium.vim',
+  config = function()
+    -- Change '<C-g>' here to any keycode you like.
+    vim.keymap.set('i', '<C-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+    vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+    vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+    vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+  end
+
+  },
 
   -- change trouble config
   {
@@ -70,14 +84,7 @@ return {
   },
 
   -- override nvim-cmp and add cmp-emoji
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
-  },
+
   {    'jmbuhr/otter.nvim'},
 
 --{'luk400/vim-jukit' },
@@ -118,6 +125,7 @@ return {
     },
   },
 
+
   -- add pyright to lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -136,9 +144,66 @@ return {
         end
     end
         },
+          
+      tailwindcss = {
+        -- exclude a filetype from the default_config
+        filetypes_exclude = { "markdown" },
+        -- add additional filetypes to the default_config
+        filetypes_include = { "html", "javascript", "typescript", "vue", "svelte", "css", "scss", "less", "heex", "gotmpl", "templ", 'tsx', 'jsx' },
+        -- to fully override the default_config, change the below
+        -- filetypes = {}
       },
+        lua_ls = {
+          
+        },
+        ocamllsp = {
+          cmd = { "ocamllsp" },
+          filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
+          root_dir = require("lspconfig.util").root_pattern("dune", "Makefile", "merlin.ini", ".git"),
+
+        },
+        svelte = {
+            cmd = { "svelteserver", "--stdio" },
+          filetypes = { "svelte" },
+
+        },
+bashls = {
+          cmd = { "bash-language-server", "start" },
+          filetypes = { "sh", "zsh" },
+        },
+
+        ansiblels = {
+          cmd = { "ansible-language-server", "--stdio" },
+          filetypes = {  "yaml.ansible", "yml.ansible", "ansible" },
+          settings = {
+  ansible = {
+    ansible = {
+      path = "ansible"
     },
-  },
+    executionEnvironment = {
+      enabled = false
+    },
+    python = {
+      interpreterPath = "python"
+    },
+    validation = {
+      enabled = true,
+      lint = {
+        enabled = true,
+        path = "ansible-lint"
+      }
+    }
+  }
+},      
+        },
+        htmx = {
+          { "htmx-lsp" },
+          filetypes = { "html", "tmpl", "heex", "gotmpl" },
+        },
+    },
+        },
+    },
+
 
   -- add tsserver and setup with typescript.nvim instead of lspconfig
   {
@@ -157,8 +222,18 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
+       gopls = {   filetypes = { "go", "gomod", "gowork", "gotmpl" ,"templ"},},
+
+        html = {on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "vscode-html-language-server", "--stdio" },
+  filetypes = { "html", "template", "jsx", "tsx", "svelte", "tmpl", "templ","svelte" , "vue", "heex", "gotmpl"},},
+        cssls = {  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "vscode-css-language-server", "--stdio" },
+  filetypes = { "css", "scss", "less" },},
         -- tsserver will be automatically installed with mason and loaded with lspconfig
-        tsserver = {},
+  --      tsserver = {},
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -174,6 +249,8 @@ return {
       },
     },
   },
+
+
 
   -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
   -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
@@ -207,7 +284,17 @@ return {
         "go",
         "rust",
         "ini",
-        "julia"
+        "julia",
+        "svelte",
+        "heex",
+        "css",
+        "scss",
+
+        "toml",
+        "vue",
+        "ocaml",
+        
+        "dockerfile",
       },
 
       autotag = {
@@ -272,7 +359,8 @@ return {
         "elixir-ls",
         "gofumpt",
         "golangci-lint",
-        "julia-lsp"
+        "julia-lsp",
+        "htmx-lsp",
       },
     },
   },
@@ -336,9 +424,30 @@ return {
       })
     end,
   },
+  {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'},
+
+    {'quarto-dev/quarto-nvim', enabled = false},
+
+  {'kevinhwang91/nvim-ufo', enabled = false},
 
 -- R
   {"jalvesaq/Nvim-R",
 lazy = false
   },
+
+  require'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true,
+  }
+},
+
+-- new filetypes for prettier
+    {"stevearc/conform.nvim",
+opts =  function(_, opts)
+      opts.list_extend(opts.formatters_by_ft, {
+            ["svelte"] = {"prettier"}, -- "--parser", "svelte"},
+        ["templ"] = {"prettier"},
+      })
+    end,
+    },
 }
