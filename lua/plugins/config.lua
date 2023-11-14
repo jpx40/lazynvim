@@ -153,6 +153,11 @@ return {
         -- to fully override the default_config, change the below
         -- filetypes = {}
       },
+        unocss = {
+          cmd = { "unocss-language-server", "--stdio" },
+          filetypes = { "html", "css", "heex", "gotmpl", "templ", 'tsx', 'jsx' },
+          root_dir = require("lspconfig.util").root_pattern("unocss.config.ts", "unocss.config.js", "unocss.config.cjs", "unocss.config.mjs"),
+        },
         lua_ls = {
           
         },
@@ -162,15 +167,28 @@ return {
           root_dir = require("lspconfig.util").root_pattern("dune", "Makefile", "merlin.ini", ".git"),
 
         },
+        zls = {
+          cmd = { "zls" },
+          filetypes = { "zig", "zir" },
+          root_dir = require("lspconfig.util").root_pattern("zir.zls", "zls.zir", ".git"),
+        },
         svelte = {
             cmd = { "svelteserver", "--stdio" },
           filetypes = { "svelte" },
+
+        },
+        templ ={
+          cmd = {"templ", "lsp"},
+          filetypes = { "templ" },
+          root_dir = require("lspconfig.util").root_pattern("gp.work", "go.mod", ".git"),
+
 
         },
 bashls = {
           cmd = { "bash-language-server", "start" },
           filetypes = { "sh", "zsh" },
         },
+        
 
         ansiblels = {
           cmd = { "ansible-language-server", "--stdio" },
@@ -222,7 +240,7 @@ bashls = {
     opts = {
       ---@type lspconfig.options
       servers = {
-       gopls = {   filetypes = { "go", "gomod", "gowork", "gotmpl" ,"templ"},},
+       gopls = {   filetypes = { "go", "gomod", "gowork", "gotmpl"},},
 
         html = {on_attach = on_attach,
   capabilities = capabilities,
