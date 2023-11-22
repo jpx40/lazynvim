@@ -177,6 +177,9 @@ return {
           filetypes = { "svelte" },
 
         },
+        julials = {
+          
+        },
         templ ={
           cmd = {"templ", "lsp"},
           filetypes = { "templ" },
@@ -214,6 +217,7 @@ bashls = {
   }
 },      
         },
+        taplo ={},
         htmx = {
           { "htmx-lsp" },
           filetypes = { "html", "tmpl", "heex", "gotmpl" },
@@ -318,6 +322,33 @@ bashls = {
       autotag = {
         -- Setup autotag using treesitter config.
         enable = true,
+                  enable = true,
+    enable_rename = true,
+    enable_close = true,
+    enable_close_on_slash = true,
+        filetypes = {
+        "html",
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
+        "svelte",
+        "vue",
+        "tsx",
+        "jsx",
+        "rescript",
+        "xml",
+        "php",
+        "markdown",
+        "astro",
+        "glimmer",
+        "handlebars",
+        "hbs",
+        "heex",
+        "templ",
+        "gotmpl"
+        },
+      
       },
     },
   },
@@ -452,20 +483,38 @@ bashls = {
   {"jalvesaq/Nvim-R",
 lazy = false
   },
-
-  require'nvim-treesitter.configs'.setup {
-  autotag = {
-    enable = true,
-  }
-},
-
+  {'rescript-lang/vim-rescript'},
+  {'nkrkv/nvim-treesitter-rescript'},
 -- new filetypes for prettier
-    {"stevearc/conform.nvim",
-opts =  function(_, opts)
-      opts.list_extend(opts.formatters_by_ft, {
-            ["svelte"] = {"prettier"}, -- "--parser", "svelte"},
-        ["templ"] = {"prettier"},
-      })
-    end,
+--     {"stevearc/conform.nvim",
+-- opts =  function(_, opts)
+--       opts.list_extend(opts.formatters_by_ft, {
+--             ["svelte"] = {"prettier"}, -- "--parser", "svelte"},
+--         ["templ"] = {"prettier"},
+--       })
+--     end,
+--     }
+  {  "stevearc/conform.nvim",
+  optional = true,
+  opts = {
+    formatters_by_ft = {
+      ["javascript"] = { "prettier" },
+      ["javascriptreact"] = { "prettier" },
+      ["typescript"] = { "prettier" },
+      ["typescriptreact"] = { "prettier" },
+      ["vue"] = { "prettier" },
+      ["css"] = { "prettier" },
+      ["scss"] = { "prettier" },
+      ["less"] = { "prettier" },
+      ["html"] = { "prettier" },
+      ["json"] = { "prettier" },
+      ["jsonc"] = { "prettier" },
+      ["yaml"] = { "prettier" },
+      ["markdown"] = { "prettier" },
+      ["markdown.mdx"] = { "prettier" },
+      ["graphql"] = { "prettier" },
+      ["handlebars"] = { "prettier" },
     },
+  },
+}
 }
