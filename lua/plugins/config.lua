@@ -161,6 +161,10 @@ return {
         lua_ls = {
           
         },
+
+        elvish = {
+          
+        }, 
         ocamllsp = {
           cmd = { "ocamllsp" },
           filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
@@ -311,7 +315,7 @@ bashls = {
         "heex",
         "css",
         "scss",
-
+"elvish",
         "toml",
         "vue",
         "ocaml",
