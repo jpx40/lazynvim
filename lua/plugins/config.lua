@@ -9,8 +9,10 @@
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 
-
 return {
+
+
+  { "nathom/filetype.nvim"  },
   {'danielo515/nvim-treesitter-reason'},
 {"vrischmann/tree-sitter-templ"},
 
@@ -56,7 +58,7 @@ return {
   'Exafunction/codeium.vim',
   config = function()
     -- Change '<C-g>' here to any keycode you like.
-    vim.keymap.set('i', '<C-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+    vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#Accept']() end, { expr = true })
     vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
     vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
     vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
@@ -162,9 +164,11 @@ return {
           
         },
 
-        elvish = {
-          
-        }, 
+        -- elvish = {
+        --   cmd = { "elvish" },
+        --   filetypes = { "elvish","elv" },
+        --   
+        -- }, 
         ocamllsp = {
           cmd = { "ocamllsp" },
           filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },

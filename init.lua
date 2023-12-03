@@ -42,9 +42,19 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
-vim.filetype.add({
-  extension = {
-    templ = "templ",
+-- vim.filetype.add({
+--   extension = {
+--     templ = "templ",
+--   },
+-- })
+
+require("filetype").setup({
+  overrides = {
+    extensions = {
+      tmpl = "templ",
+      v = "vlang",
+      re = "reason",
+    },
   },
 })
 
