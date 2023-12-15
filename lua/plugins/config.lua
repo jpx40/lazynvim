@@ -135,8 +135,12 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
+        mint = {},
+
+        qml_lsp = {},
+        r_language_server = {},
+
         -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
       jsonls = {
            on_new_config = function(new_config, _)
         local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
@@ -146,6 +150,7 @@ return {
         end
     end
         },
+        rescriptls = {},
           
       tailwindcss = {
         -- exclude a filetype from the default_config
@@ -223,8 +228,26 @@ bashls = {
       }
     }
   }
-},      
+},     
         },
+        -- sourcekit = {
+        --   filetypes = { "swift" },  
+        -- },
+        --
+        mdx_analyzer = {
+        cmd = { "mdx-language-server", "--stdio" },
+        filetypes = { "mdx" },
+        root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
+
+        },
+      
+        dockerls = {
+          cmd = { "docker-langserver", "--stdio" },
+          filetypes = { "dockerfile" },
+          root_dir = require("lspconfig.util").root_pattern("Dockerfile", ".git"),
+        },
+
+        
         taplo ={},
         htmx = {
           { "htmx-lsp" },
