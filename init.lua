@@ -1,5 +1,4 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
--- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
 local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -12,15 +11,15 @@ treesitter_parser_config.templ = {
 }
 
 -- tree-sitter-supercollider
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.supercollider = {
-  install_info = {
-    url = "~/code/tree-sitter-supercollider",
-    files = { "src/parser.c" },
-  },
-  filetype = "supercollider", -- if filetype does not agrees with parser name
-  used_by = { "scd", "sc" }, -- additional filetypes that use this parser
-}
+-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+-- parser_config.supercollider = {
+--   install_info = {
+--     url = "~/code/tree-sitter-supercollider",
+--     files = { "src/parser.c" },
+--   },
+--   filetype = "supercollider", -- if filetype does not agrees with parser name
+--   used_by = { "scd", "sc" }, -- additional filetypes that use this parser
+-- }
 
 require("nvim-treesitter.configs").setup({
   indent = {
@@ -42,19 +41,9 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
--- vim.filetype.add({
---   extension = {
---     templ = "templ",
---   },
--- })
-
-require("filetype").setup({
-  overrides = {
-    extensions = {
-      tmpl = "templ",
-      v = "vlang",
-      re = "reason",
-    },
+vim.filetype.add({
+  extension = {
+    templ = "templ",
   },
 })
 
@@ -69,10 +58,32 @@ parser_config.gotmpl = {
   used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
 }
 
-vim.filetype.add({
-  extension = {
-    tmpl = "gotmpl",
+-- vim.filetype.add({
+--   extension = {
+--     tmpl = "gotmpl",
+--   },
+-- })
+--
+require("filetype").setup({
+  overrides = {
+    extensions = {
+      tmpl = "templ",
+      v = "vlang",
+      re = "reason",
+      slint = "slint",
+      sql = "sql",
+      html = "html",
+    },
   },
 })
 
-vim.lsp.set_log_level("debug")
+-- require("lspconfig").oxlint = {
+--   default_config = {
+--     cmd = { "oxlint", "lsp" },
+--     filetypes = { "js", "jsx", "ts", "tsx" },
+--     root_dir = require("lspconfig").util.root_pattern("package.json"),
+--     settings = {},
+--   },
+-- }
+-- vim.lsp.set_log_level("debug")
+--
